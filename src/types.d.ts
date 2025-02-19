@@ -205,6 +205,10 @@ export interface ContentType extends Omit<Headline, 'classes'>, Widget {
   images?: Array<ImageMetadata>;
 }
 
+export interface SlideModalType extends Omit<Headline, 'classes'>, Widget {
+  images?: Array<ImageMetadata>;
+}
+
 export interface ItemGrid {
   items?: Array<Item>;
   columns?: number;
