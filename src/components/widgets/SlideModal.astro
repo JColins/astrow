@@ -7,15 +7,18 @@ const {
 } = Astro.props;
 ---
 
-<div id="slideModal" class="modal hidden fixed top-0 left-0 w-full h-full bg-black/80 z-20">
-    <!-- <span class="close cursor text-white text-3xl fixed top-[50%] lg:mt-[-30%] max-xl:mt-[-38%] xl:mt-[-23%] lg:left-[87%] max-xl:left-[95%] xl:left-[78%] z-30 cursor-pointer max-md:hidden" onclick="closeModal()">×</span> -->
-    <span class="close cursor text-white text-3xl fixed top-36 max-md:top-[30%] left-[88%] z-30 cursor-pointer" onclick="closeModal()">×</span>
+<div id="slideModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 transition-all">
+    
 
-    <div class="overflow-x-hidden fixed top-36 max-md:top-[30%] right-0 left-0 z-20 mx-auto justify-center items-center sm:w-[80%] overflow-hidden w-full max-h-[80%] h-full">
+    <div class="relative w-full h-screen max-w-6xl mx-auto my-[50%] md:my-[5%] flex items-center justify-center">
+        <span class="absolute top-[2%] right-[2%] text-white drop-shadow-md text-3xl cursor-pointer z-20" onclick="closeModal()">×</span>
+        <a class="absolute top-[10%] md:top-[30%] lg:top-[40%] right-[2%] text-white drop-shadow-md text-3xl cursor-pointer z-20" onclick="plusSlides(-1)">❮</a>
+        <a class="absolute top-[10%] md:top-[30%] lg:top-[40%] left-[2%] text-white drop-shadow-md text-3xl cursor-pointer z-20" onclick="plusSlides(1)">❯</a>
+
         {images.map((image) => (
-            <div class="slides slides-portfolio" id="portfolio">
+            <div class="slides slides-portfolio flex items-center justify-center w-full h-full transition-transform duration-500" id="portfolio">
                 <Image
-                    class="absolute inset-0 w-full h-fit justify-center flex"
+                    class="object-contain max-w-full max-h-full transition-all duration-500"
                     width={image.src.width}
                     height={image.src.height}
 
@@ -24,7 +27,5 @@ const {
             </div>
         ))}
 
-        <a class="prev fixed top-[50%] left-[87%] z-50 cursor-pointer text-white text-3xl max-md:hidden" onclick="plusSlides(-1)">❮</a>
-        <a class="next fixed top-[50%] right-[87%] z-50 cursor-pointer text-white text-3xl max-md:hidden" onclick="plusSlides(1)">❯</a>
     </div>
 </div>
