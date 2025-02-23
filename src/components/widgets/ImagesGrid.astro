@@ -1,9 +1,8 @@
 ---
 import type { ContentType as Props } from '~/types';
 import Button from '~/components/ui/Button.astro';
-import Image from '~/components/common/Image.astro';
 import WidgetWrapper from '../ui/WidgetWrapper.astro';
-import SlideModal from '~/components/widgets/SlideModal.astro';
+import PhotoGallery from './PhotoGallery.astro';
 
 
 const { 
@@ -11,7 +10,7 @@ const {
   subTitle,
   text,
   callToAction,
-  images = [],
+  imagesFolder = "",
 
   id,
   isDark,
@@ -30,24 +29,9 @@ const {
 <h1 class="mb-2 font-bold text-3xl tracking-tight text-heading dark:text-white"><div set:text={title} /></h1>
 <h2 class="mb-2 font-bold text-lg tracking-tight text-accent dark:text-white"><div set:text={subTitle} /></h2>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2 mt-4 mb-10 w-full">
-    {images.map((image, idx) => (
-        <div class="h-auto max-w-full" onclick={`openModal();currentSlide(${idx+1})`}>
-        {
-          <Image
-              width={image.src.width}
-              height={image.src.height}
-
-              {...image}
-          />
-        }
-        </div>
-      ))}
-</div>
+<PhotoGallery imageFolder={imagesFolder} />
 
 <h3 class="my-4 w-full font-normal text-muted dark:text-gray-200"><div set:text={text} /></h3>
 <Button variant="secondary" {...callToAction} />
 <hr class="my-12 h-px border-t-0 bg-transparent bg-linear-to-r from-transparent via-slate-50 to-transparent opacity-50 dark:via-neutral-400" />
 </WidgetWrapper>
-
-<SlideModal images={images} />

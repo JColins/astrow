@@ -36,6 +36,7 @@
     "flowbite": "^3.0.0",
     "limax": "4.1.0",
     "lodash.merge": "^4.6.2",
+    "photoswipe": "^5.4.4",
     "swiper": "^11.2.1",
     "unpic": "^3.22.0"
   },
