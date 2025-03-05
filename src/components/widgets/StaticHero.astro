@@ -1,14 +1,19 @@
 ---
 import Image from '~/components/common/Image.astro';
 import staticHero from '~/assets/images/img8.jpg'
+import { Icon } from 'astro-icon/components';
 ---
-
-<Image
-    src={ staticHero }
-    alt="Static Hero Image"
-    id="staticHero"
-    loading={'eager'}
-/>
+<div>
+    <Image
+        src={ staticHero }
+        alt="Static Hero Image"
+        id="staticHero"
+        loading={'eager'}
+    />
+    <div class="absolute bottom-1/2 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <Icon name={"tabler:arrow-down-dashed"} class="w-10 h-10 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block text-white" />
+    </div>
+</div>
 
 <script is:inline>
     // Update margin dynamically

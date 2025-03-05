@@ -12,36 +12,44 @@ const imagePaths = Object.keys(images).filter((imagePath) => {
 	return imagePath.startsWith(`/src/assets/${imageFolder}/`);
 });
 ---
-
+<!-- grid grid-cols-2 md:grid-cols-3 gap-2 -->
 <div
 	id="gallery"
-	class="container mx-auto px-2 pb-2 grid grid-cols-2 md:grid-cols-3 gap-2"
+	class="container mx-auto px-2 pb-2 columns-2 md:columns-3 gap-2 space-y-2"
 >
 	{
 		imagePaths.map(async (imagePath) => {
 			let image = images[imagePath]();
-            let altText = imagePath.split("/").pop()?.replace(".jpg", "") ?? "Image";
+			let altText = imagePath.split("/").pop()?.replace(".jpg", "").replace("-", " ") ?? "Image";
+
+			// Generate optimized image with different widths
 			let optimizedImage = await getImage({
-				src: image,
-				width: 1920,
+			src: image,
+			widths: [480, 768, 1280, 1920], // Responsive sizes for mobile, tablet, desktop
+			format: "webp", // Serve next-gen format
 			});
 
 			return (
+			<div>
 				<a
-					href={optimizedImage.src}
-					data-pswp-width={optimizedImage.attributes.width}
-					data-pswp-height={optimizedImage.attributes.height}
-					target="_blank"
+				class="w-full"
+				href={optimizedImage.src}
+				data-pswp-width={optimizedImage.attributes.width}
+				data-pswp-height={optimizedImage.attributes.height}
+				target="_blank"
 				>
-					<Image
-						src={image}
-						alt={altText}
-						height={350}
-						class={
-							"object-cover w-full"
-						}
-					/>
+				<Image
+					src={image}
+					alt={altText}
+					widths={[480, 768, 1280, 1920]}
+					sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+					format="webp"
+					loading="lazy"
+					decoding="async"
+					class="w-full object-cover hover:scale-102 hover:shadow-xl transition-all"
+				/>
 				</a>
+			</div>
 			);
 		})
 	}
