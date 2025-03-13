@@ -65,7 +65,7 @@
 }
 
 @utility btn-primary {
-  @apply btn font-semibold bg-primary text-page border-primary hover:scale-102 hover:shadow-lg hover:border-primary dark:text-white dark:bg-primary dark:border-primary dark:hover:border-secondary dark:hover:bg-secondary;
+  @apply btn font-semibold bg-primary text-default border-primary hover:scale-102 hover:shadow-lg hover:border-primary dark:text-white dark:bg-primary dark:border-primary dark:hover:border-secondary dark:hover:bg-secondary;
 }
 
 @utility btn-secondary {
@@ -130,17 +130,28 @@
 }
 
 #staticHero {
-  position: fixed;
+  position: absolute; /* Fixed won't work well with scale */
   top: 0;
   left: 0;
   width: 100%;
-  height: 60vh;
+  height: 100%;
   object-fit: cover;
-  z-index: -1;
+  transform: scale(1.2); /* Start slightly scaled */
+  will-change: transform;
 }
 
+/* .staticHero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(0);
+  will-change: transform; /* Optimizes performance 
+} */
+
+
 #hero {
-  margin-top: 60vh;
   background-color: white;
 }
 

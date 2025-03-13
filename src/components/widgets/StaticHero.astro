@@ -3,41 +3,33 @@ import Image from '~/components/common/Image.astro';
 import staticHero from '~/assets/images/img8.jpg'
 import { Icon } from 'astro-icon/components';
 ---
-<div>
-    <Image
-        src={ staticHero }
-        alt="Static Hero Image"
-        id="staticHero"
-        loading={'eager'}
-    />
-    <div class="absolute bottom-1/2 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <Icon name={"tabler:arrow-down-dashed"} class="w-10 h-10 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block text-white" />
+<section class="relative w-full h-[100vh] overflow-hidden">
+    <div class="fixed top-0 left-0 w-full h-[100vh] z-[-1]">
+        <Image
+            class="w-full h-full object-cover"
+            src={ staticHero }
+            alt="Static Hero Image"
+            id="staticHero"
+            loading={'eager'}
+        />
     </div>
-</div>
+    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <Icon name={"tabler:select"} class="w-10 h-10 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block text-white" />
+    </div>
+</section>
 
 <script is:inline>
-    // Update margin dynamically
-    function updateMargin() {
-        requestAnimationFrame(() => {
-            const headerComponent = document.querySelector('#header');
-            const staticHeroComponent = document.querySelector('#staticHero');
-            let height = 0;
+    document.addEventListener("scroll", function () {
+        const heroImage = document.getElementById("staticHero");
+        if (!heroImage) return;
 
-            if(null != headerComponent)
-            {
-                height = headerComponent.offsetHeight;         
+        const scrollPosition = window.scrollY;
+        const scaleFactor = 1.2 - scrollPosition * 0.0002; // Adjust shrinking speed
 
-                staticHeroComponent.style.marginTop = `${height}px`;
-            }
-        });
-    }
+        // Prevent it from shrinking too much
+        if (scaleFactor > 1) {
+            heroImage.style.transform = `scale(${scaleFactor})`;
+        }
+    });
 
-    // Call on load and resize
-    window.addEventListener('load', updateMargin);
-    window.addEventListener('resize', updateMargin);
-    window.addEventListener('pageshow', updateMargin);
-
-    if (document.readyState === 'interactive' || document.readyState === 'complete') {
-        updateMargin();
-    }
 </script>
